@@ -117,10 +117,10 @@ public class ZebraBluetoothPrinter extends CordovaPlugin implements DiscoveryHan
 
         byte[] ditheredB64Png = Base64.decode(base64Dithered, Base64.DEFAULT);
         Bitmap ditheredPng = BitmapFactory.decodeByteArray(ditheredB64Png, 0, ditheredB64Png.length);
-        
+
         if(ditheredPng.getHeight() > ditheredPng.getWidth())
             ditheredPng = Bitmap.createScaledBitmap(ditheredPng, 300, 540, true);
-        
+
         ZPLConverter zplConveter = new ZPLConverter();
         zplConveter.setCompressHex(false);
         zplConveter.setBlacknessLimitPercentage(blacknessPercentage);
@@ -166,7 +166,7 @@ public class ZebraBluetoothPrinter extends CordovaPlugin implements DiscoveryHan
                     else if(printerStatus.isHeadOpen){
                         callbackContext.error("Printer head is open");
                     }
-                    
+
                     else{
                         callbackContext.error("Cannot print, unknown error");
                     }
@@ -181,8 +181,8 @@ public class ZebraBluetoothPrinter extends CordovaPlugin implements DiscoveryHan
         }).start();
 
     }
-    
-    
+
+
     /*
      * This will send data to be printed by the bluetooth printer
      */
@@ -198,18 +198,18 @@ public class ZebraBluetoothPrinter extends CordovaPlugin implements DiscoveryHan
                     // if (isPrinterReady(thePrinterConn)) {
 
                     // Initialize
-                    Looper.prepare();
+                    // Looper.prepare();
 
                     // Open the connection - physical connection is established here.
                     thePrinterConn.open();
 
-                    SGD.SET("device.languages", "zpl", thePrinterConn);
+                    // SGD.SET("device.languages", "zpl", thePrinterConn);
                     thePrinterConn.write(msg.getBytes());
 
                     // Close the insecure connection to release resources.
                     thePrinterConn.close();
 
-                    Looper.myLooper().quit();
+                    // Looper.myLooper().quit();
                     callbackContext.success("Done");
 
                     // } else {
@@ -223,7 +223,7 @@ public class ZebraBluetoothPrinter extends CordovaPlugin implements DiscoveryHan
         }).start();
     }
 
-    
+
     private void sendImage(final JSONArray labels, final String MACAddress) throws IOException {
         new Thread(new Runnable() {
             @Override
